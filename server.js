@@ -15,9 +15,9 @@ const static = require("./routes/static")
 /* ***********************
  * view engine and templates
  *************************/
-app.set('view engine','ejs')
-app.use(expressLayouts);
-app.set('layout', './layouts/layout');
+app.set("view engine", "ejs")
+app.use(expressLayouts)
+app.set("layout", "./layouts/layout") // not at views root
 
 
 /* ***********************
