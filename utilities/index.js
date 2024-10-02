@@ -31,6 +31,18 @@ Util.buildClassificationGrid = async function(data){
   return grid
 }
 
+// utilities/index.js
+Util.buildVehicleDetailHTML = function(vehicle){
+  let vehicleHTML = '<div class="vehicle-detail">';
+  vehicleHTML += `<h1>${vehicle.inv_make} ${vehicle.inv_model}</h1>`;
+  vehicleHTML += `<img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">`;
+  vehicleHTML += `<p>Price: $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</p>`;
+  vehicleHTML += `<p>Year: ${vehicle.inv_year}</p>`;
+  vehicleHTML += `<p>Mileage: ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)} miles</p>`;
+  vehicleHTML += `<p>Description: ${vehicle.inv_description}</p>`;
+  vehicleHTML += '</div>';
+  return vehicleHTML;
+};
 
 
 /* ************************

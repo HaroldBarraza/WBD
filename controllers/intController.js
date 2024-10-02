@@ -3,20 +3,24 @@ const utilities = require("../utilities");
 
 const invCont = {};
 
-/*
-  Build inventory by classification view
- */
-invCont.buildByClassificationId = async function (req, res, next) {
-  const classification_id = req.params.classificationId;
-  const data = await invModel.getInventoryByClassificationId(classification_id);
-  const grid = await utilities.buildClassificationGrid(data);
-  let nav = await utilities.getNav(); 
-  const className = data[0].classification_name;
+invCont.getInventoryDetail = async function (req, res, next) {
+  const inventory_id = req.params.inventory_id;
+  const vehicleData = await invModel.getVehicleById(inventory_id); // Obtener los datos del vehículo
+  let nav = await utilities.getNav();
 
-  res.render("./inventory/classification", {
-    title: className + " vehicles", 
-    grid,
-  });
+  if (vehicleData.length > 0) {
+    const vehicle = vehicleData[0];
+    const vehicleHTML = utilities.buildVehicleDetailHTML(vehicle); // Utilizar la función de utilidades para generar el HTML
+
+    res.render("./inventory/detail", {
+      title: `${vehicle.inv_make} ${vehicle.inv_model}`, // Título con marca y modelo
+      vehicleHTML, 
+      nav,
+    });
+  } else {
+    next({ status: 404, message: "Vehicle not found" });
+  }
 };
 
 module.exports = invCont;
+

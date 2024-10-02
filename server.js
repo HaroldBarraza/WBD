@@ -14,7 +14,7 @@ const static = require("./routes/static");
 const inventoryRoute = require('./routes/inventoryRoute');
 const baseController = require('./controllers/baseController');
 const utilities = require('./utilities');
-
+const errorController = require('./controllers/errorController');
 
 /* ***********************
  * View engine and templates
@@ -33,6 +33,9 @@ app.get("/", utilities.handleError(baseController.buildHome));
 
 // Inventory routes
 app.use("/inv", inventoryRoute);
+
+// Ruta para forzar error 500
+app.get("/cause-error", utilities.handleError(errorController.throwError));
 
 /* ***********************
  * File not found (404)
@@ -55,7 +58,6 @@ app.use(async (err, req, res, next) => {
     nav
   });
 });
-
 
 /* ***********************
  * Local Server Information
