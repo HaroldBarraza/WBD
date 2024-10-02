@@ -1,26 +1,36 @@
 const invModel = require("../models/inventory-model");
 const utilities = require("../utilities");
 
-const invCont = {};
+const intCont = {};
 
-invCont.getInventoryDetail = async function (req, res, next) {
+/*
+  Build inventory by classification view
+ */
+intCont.buildByClassificationId = async function (req, res, next) {
+  const classification_id = req.params.classificationId;
+  const data = await invModel.getInventoryByClassificationId(classification_id);
+  const grid = await utilities.buildClassificationGrid(data);
+  let nav = await utilities.getNav(); 
+  const className = data[0].classification_name;
+
+  res.render("./inventory/classification", {
+    title: className + " vehicles", 
+    grid,
+    nav,
+  });
+};
+
+intCont.getInventoryDetail = async function (req, res, next) {
   const inventory_id = req.params.inventory_id;
-  const vehicleData = await invModel.getVehicleById(inventory_id); // Obtener los datos del vehículo
-  let nav = await utilities.getNav();
-
-  if (vehicleData.length > 0) {
-    const vehicle = vehicleData[0];
-    const vehicleHTML = utilities.buildVehicleDetailHTML(vehicle); // Utilizar la función de utilidades para generar el HTML
-
+  const data = await invModel.getInventoryDetailById(inventory_id);
+  if (data) {
     res.render("./inventory/detail", {
-      title: `${vehicle.inv_make} ${vehicle.inv_model}`, // Título con marca y modelo
-      vehicleHTML, 
-      nav,
+      title: data.inv_make + " " + data.inv_model,
+      vehicle: data,
     });
   } else {
-    next({ status: 404, message: "Vehicle not found" });
+    res.status(404).send("Inventory item not found");
   }
 };
 
-module.exports = invCont;
-
+module.exports = intCont;

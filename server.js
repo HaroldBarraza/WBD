@@ -34,7 +34,6 @@ app.get("/", utilities.handleError(baseController.buildHome));
 // Inventory routes
 app.use("/inv", inventoryRoute);
 
-// Ruta para forzar error 500
 app.get("/cause-error", utilities.handleError(errorController.throwError));
 
 /* ***********************
