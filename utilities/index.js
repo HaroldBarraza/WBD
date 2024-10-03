@@ -31,18 +31,23 @@ Util.buildClassificationGrid = async function(data){
   return grid
 }
 
-// utilities/index.js
-Util.buildVehicleDetailHTML = function(vehicle){
-  let vehicleHTML = '<div class="vehicle-detail">';
-  vehicleHTML += `<h1>${vehicle.inv_make} ${vehicle.inv_model}</h1>`;
-  vehicleHTML += `<img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">`;
-  vehicleHTML += `<p>Price: $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</p>`;
-  vehicleHTML += `<p>Year: ${vehicle.inv_year}</p>`;
-  vehicleHTML += `<p>Mileage: ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)} miles</p>`;
-  vehicleHTML += `<p>Description: ${vehicle.inv_description}</p>`;
-  vehicleHTML += '</div>';
-  return vehicleHTML;
+
+Util.buildDetailHtml = async function (data) {
+  let html = `
+    <div class="detail-container">
+      <img src="${data.inv_image}" alt="${data.inv_make} ${data.inv_model}">
+      <div class="detail-content">
+        <h2>${data.inv_make} ${data.inv_model}</h2>
+        <p>Year: ${data.inv_year}</p>
+        <p>Price: $${new Intl.NumberFormat("en-US").format(data.inv_price)}</p>
+        <p>Mileage: ${new Intl.NumberFormat("en-US").format(data.inv_miles)} miles</p>
+        <p>Description: ${data.inv_description}</p>
+      </div>
+    </div>
+  `;
+  return html;
 };
+
 
 
 /* ************************
