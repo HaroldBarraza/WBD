@@ -28,13 +28,18 @@ app.set("layout", "./layouts/layout");
  *************************/
 app.use(static); 
 
-// Index route
+/************** 
+Index route
+**************/
 app.get("/", utilities.handleError(baseController.buildHome));
-
-// Inventory routes
+/************** 
+Inventory routes
+**************/
 app.use("/inv", inventoryRoute);
 
-// Trigger intentional error
+/************** 
+Trigger intentional error
+**************/
 app.get("/error", utilities.handleError(errorController.throwError));
 
 /* ***********************
@@ -54,7 +59,7 @@ app.use(async (err, req, res, next) => {
     nav = await utilities.getNav();
   } catch (navError) {
     console.error(`Failed to get navigation: ${navError.message}`);
-    nav = null; // Fallback to null if nav fails
+    nav = null;
   }
 
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);
