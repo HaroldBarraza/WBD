@@ -14,6 +14,9 @@ nav{
   background-color: black;
   color: aliceblue;
 }
+nav a{
+  color: aliceblue;
+}
 nav ul{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -159,6 +162,118 @@ footer{
 #rewiews li{
   font-size: 1.5vw;
 }
+
+/*Inventory css*/
+#inv-display{
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr ;
+  gap: 4rem 2rem;
+  margin-right: 1rem;
+  text-align: center;
+}
+#inv-display li{
+  border: 2px;
+  border-style: double;
+  border-radius: 2px;
+  border-color: brown;
+}
+#inv-display img{
+  width: 100%;
+}
+#inv-display h2{
+  font-size: 2rem;
+}
+.namePrice a{
+  font-size: 1.5rem;
+}
+.namePrice span{
+  font-size: 2rem;
+  text-align: end;
+}
+
+
+#inv-display li img[alt*="Image of Batmobile Custom on CSE Motors"]{
+  margin-bottom: 4.8rem;
+}
+#inv-display li img[alt*="Image of FBI Surveillance Van on CSE Motors"]{
+  margin-bottom: 2.2rem;
+}
+#inv-display li img[alt*="Image of Aerocar International Aerocar on CSE Motors"]{
+  margin-bottom: 2.5rem;
+}
+#inv-display li img[alt*="Image of Monster Truck on CSE Motors"]{
+  margin-bottom: 2rem;
+}
+#inv-display li img[alt*="Image of Ford Crown Victoria on CSE Motors"]{
+  margin-bottom: 2.5rem;
+}
+#inv-display li img[alt*="Image of Mechanic Special on CSE Motors"]{
+  margin-bottom: 3.5rem;
+}
+#inv-display li img[alt*="Image of Chevy Camaro on CSE Motors"]{
+  margin-bottom: 1rem;
+}
+#inv-display li img[alt*="Image of Lamborghini Adventador on CSE Motors"]{
+  margin-bottom: 1rem;
+}
+#inv-display li img[alt*="Image of Cadillac Escalade on CSE Motors"]{
+  margin-bottom: 0.8rem;
+}
+#inv-display li img[alt*="Image of GM Hummer on CSE Motors"]{
+  margin-bottom: 2.5rem;
+}
+
+
+
+
+
+/*Details css*/
+.detail-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.detail-container img{
+  width: 100%;
+  margin-top: 5rem;
+}
+.detail-content h2{
+  margin-top: 0rem;
+}
+.detail-content p:nth-of-type(4){
+  background-color: aliceblue;
+  font-size: 1.6rem;
+
+}
+.detail-content p:nth-child(3){
+  background-color: aliceblue;
+}
+.detail-content p{
+  background-color: rgb(203, 21, 8, 0.1);
+  padding: 2rem;
+  font-size: 1.5rem;
+}
+/*404*/
+
+#error404 {
+  position: relative;
+}
+
+#message {
+  position: absolute;
+  bottom: 10px;
+  right: 10px; 
+  background-color: rgba(0, 0, 0, 0.1); 
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#error404 img {
+  width: 100%;
+}
+
+
 @media (max-width: 768px) {
   #sub-text {
     grid-column: 2 / 3;
@@ -220,6 +335,7 @@ footer{
   }
   nav ul{
     margin-left: -40px;
+    font-size: 1rem;
   }
   footer{
     font-size: 3.5vw;
@@ -230,5 +346,69 @@ footer{
   #Stickers img:nth-child(1){
     margin-top: 16%;
     margin-bottom: 2.4%;
+  }
+  #inv-display{
+    display: block;
+    margin-left: -2rem;
+  }
+  #inv-display li img[alt*="Image of Batmobile Custom on CSE Motors"]{
+    margin-bottom: 0rem;
+  }
+  #inv-display li img[alt*="Image of FBI Surveillance Van on CSE Motors"]{
+    margin-bottom: 0rem;
+  }
+  #inv-display li img[alt*="Image of Aerocar International Aerocar on CSE Motors"]{
+    margin-bottom: 0rem;
+  }
+  #inv-display li img[alt*="Image of Monster Truck on CSE Motors"]{
+    margin-bottom: 0rem;
+  }
+  #inv-display li img[alt*="Image of Ford Crown Victoria on CSE Motors"]{
+    margin-bottom: 0rem;
+  }
+  #inv-display li img[alt*="Image of Mechanic Special on CSE Motors"]{
+    margin-bottom: 0rem;
+  }
+  #inv-display li img[alt*="Image of Chevy Camaro on CSE Motors"]{
+    margin-bottom: 0rem;
+  }
+  #inv-display li img[alt*="Image of Lamborghini Adventador on CSE Motors"]{
+    margin-bottom: 0rem;
+  }
+  #inv-display li img[alt*="Image of Cadillac Escalade on CSE Motors"]{
+    margin-bottom: 0rem
+  }
+  #inv-display li img[alt*="Image of GM Hummer on CSE Motors"]{
+    margin-bottom: 0rem;
+  }
+  div nav a{
+    font-size: 1rem;
+  }
+  .namePrice{
+    margin: 0px 0px;
+  }
+  #inv-display li {
+    margin-bottom: 25px;
+  }
+  .vehicle-details{
+    margin: 0px 0px;
+  }
+  .detail-container{
+    display: block;
+  }
+  .detail-content{
+    margin: 0px 0px;
+  }
+  .detail-content h2{
+    font-size: 40px;
+  }
+  .detail-container img{
+    margin-top: 0px;
+  }
+  #message {
+    bottom: -25px;
+    right: 1px;
+    font-size: 5px;
+    padding: 0px;
   }
 }
