@@ -79,7 +79,7 @@ Util.getNav = async function (req, res, next) {
  * General Error Handling
 */
 Util.errorHandler500 = (err, req, res, next) => {
-  console.error(err); // Asegúrate de registrar el error para depuración
+  console.error(err);
   res.status(500);
   res.render("errors/error", { error: err });
 };

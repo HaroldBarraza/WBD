@@ -35,7 +35,7 @@ app.get("/", utilities.handleError(baseController.buildHome));
 app.use("/inv", inventoryRoute);
 
 // Trigger intentional error
-app.get("/error", utilities.handleError(errorController.throwError)); // Nueva ruta de error
+app.get("/error", utilities.handleError(errorController.throwError));
 
 /* ***********************
  * File not found (404)
