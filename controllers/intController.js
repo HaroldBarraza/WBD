@@ -53,6 +53,14 @@ intCont.getInventoryDetail = async function (req, res, next) {
     next(error);
   }
 };
+intCont.triggerError500 = async function (req, res, next) {
+  try {
+    // Intentionalmente lanzar un error
+    throw new Error("Error intencional de tipo 500");
+  } catch (error) {
+    next(error);
+  }
+};
 
 
 module.exports = intCont;

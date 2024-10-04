@@ -34,7 +34,8 @@ app.get("/", utilities.handleError(baseController.buildHome));
 // Inventory routes
 app.use("/inv", inventoryRoute);
 
-app.get("/cause-error", utilities.handleError(errorController.throwError));
+// Trigger intentional error
+app.get("/error", utilities.handleError(errorController.throwError)); // Nueva ruta de error
 
 /* ***********************
  * File not found (404)
@@ -44,14 +45,26 @@ app.use(async (req, res, next) => {
 });
 
 /* ***********************
-* Express Error Handler
-* Place after all other middleware
-*************************/
+ * Express Error Handler
+ * Place after all other middleware
+ *************************/
 app.use(async (err, req, res, next) => {
-  let nav = await utilities.getNav();
+  let nav;
+  try {
+    nav = await utilities.getNav();
+  } catch (navError) {
+    console.error(`Failed to get navigation: ${navError.message}`);
+    nav = null; // Fallback to null if nav fails
+  }
+
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);
-  if(err.status == 404){ message = err.message} else {message = 'Oh no! there was crash. Maybe try a different route? '}
-  res.render("errors/error", {
+  let message;
+  if (err.status === 404) {
+    message = err.message;
+  } else {
+    message = 'Oh no! There was a crash. Maybe try a different route?';
+  }
+  res.status(err.status || 500).render("errors/error", {
     title: err.status || 'Server Error',
     message,
     nav
@@ -69,5 +82,5 @@ const host = process.env.HOST || '0.0.0.0';
  * Log statement to confirm server operation
  *************************/
 app.listen(port, host, () => {
-  console.log(`app listening on ${host}:${port}`);
+  console.log(`App listening on ${host}:${port}`);
 });

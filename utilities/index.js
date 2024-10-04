@@ -78,8 +78,14 @@ Util.getNav = async function (req, res, next) {
  * Wrap other function in this for 
  * General Error Handling
 */
-
+Util.errorHandler500 = (err, req, res, next) => {
+  console.error(err); // Asegúrate de registrar el error para depuración
+  res.status(500);
+  res.render("errors/error", { error: err });
+};
 Util.handleError = fn =>(req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
+
 
 
 
