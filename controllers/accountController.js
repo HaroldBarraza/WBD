@@ -25,6 +25,7 @@
           res.status(201).render("account/login", {
             title: "Login",
             nav,
+            messages:req.flash()
           })
         } else {
           req.flash("notice", "Sorry, the registration failed.")
@@ -58,6 +59,8 @@
         res.render("account/register",{
             title: "Register",
             nav,
+            error: null,
         })
     }
-    module.exports = { buildLogin,  buildRegister, registerAccount };
+
+module.exports = { buildLogin,  buildRegister, registerAccount };

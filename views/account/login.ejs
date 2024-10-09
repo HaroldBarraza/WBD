@@ -3,10 +3,11 @@
 <div>
     <%- include('../partials/navigation') %>
     <%- include('../partials/header') %>
-
     <form action="/account/login" method="POST">
-        <input type="email" name="email" placeholder="Correo electrónico" required>
+        <input type="email" name="email" placeholder="Enter a valid email address" required>
         <input type="password" name="password" placeholder="Contraseña" required>
+        <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter, and 1 special character.</span> 
+        <input type="password" name="account_password" id="accountPassword" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
         <button type="submit">Iniciar sesión</button>
         <p>No tienes cuenta? <a href="/account/register">Regístrate aquí</a></p>
     </form>
