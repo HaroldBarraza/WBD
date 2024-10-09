@@ -83,7 +83,8 @@ Util.errorHandler500 = (err, req, res, next) => {
   res.status(500);
   res.render("errors/error", { error: err });
 };
-Util.handleError = fn =>(req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+Util.handleError = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
+
 
 
 
