@@ -1,6 +1,8 @@
 const utilities = require(".")
   const { body, validationResult } = require("express-validator")
   const validate = {}
+  const accountModel = require("../models/account-model")
+const { password } = require("pg/lib/defaults")
 
 /***********************
  *  Resgitration Data Validation Rules
@@ -27,12 +29,15 @@ validate.registationRules = () => {
       // valid email is required and cannot already exist in the DB
       body("account_email")
       .trim()
-      .escape()
-      .notEmpty()
       .isEmail()
-      .normalizeEmail() // refer to validator.js docs
-      .withMessage("A valid email is required."),
-  
+      .normalizeEmail()
+      .withMessage("A valid email is required.")
+      .custom(async (account_email) =>{
+        const emailExists = await accountModel.checkExistingEmail(account_email)
+        if (emailExists){
+          throw new Error("Email exists. Please log in or use different email")
+        }
+      }),
       // password is required and must be strong password
       body("account_password")
         .trim()
@@ -48,7 +53,20 @@ validate.registationRules = () => {
     ]
   }
 
+validate.loginRules = () => {
+  return[
+    body("account_email")
+    .trim()
+    .isEmail()
+    .normalizeEmail()
+    .withMessage("A valid email required"),
 
+    body("account_password")
+    .trim()
+    .notEmpty()
+    .withMessage("Password is requiered")
+  ]
+}
 
 
 
@@ -74,5 +92,28 @@ validate.checkRegData = async (req, res, next) => {
     }
     next()
   }
+
+
+  validate.checkLoginData = async (req, res, next) => {
+    const { account_email } = req.body;
+    const error = validationResult(req);
+    const nav = await utilities.getNav();
+    
+    // Siempre pasa el objeto 'error' a la vista
+    res.render("account/login", {
+      error: error.isEmpty() ? { array: () => [] } : error, // Si no hay errores, crea un objeto con un array vacío
+      title: "Login",
+      nav,
+      account_email
+    });
+  
+    // Si quieres continuar con el siguiente middleware solo si no hay errores, usa:
+    if (!error.isEmpty()) {
+      return; // Detener el flujo si hay errores
+    }
+    next();
+  }
+  
+  
   
 module.exports = validate
