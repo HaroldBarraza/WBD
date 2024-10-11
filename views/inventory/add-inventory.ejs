@@ -1,0 +1,68 @@
+<!-- views/inventory/addInventory.ejs -->
+
+<ul>
+  <% if (errors) { %>
+    <% errors.forEach(function(error) { %>
+      <li><%= error.msg %></li>
+    <% }); %>
+  <% } else { %>
+    <li>No errors</li>
+  <% } %>
+</ul>
+
+<div>
+<form id="loginForm" action="/inv/add-inventory" method="post" enctype="multipart/form-data">
+  <label for="classificationList"> Classification</label>
+  <div id="classificationList"></div>
+<script>
+  document.getElementById('classificationList').innerHTML = '<%- classificationList %>';
+</script>
+
+  <label for="vehicle_name">Vehicle Name:</label>
+  <input type="text" id="vehicle_name" name="vehicle_name" required value="<%= locals.vehicle_name %>">
+
+
+  <label for="vehicle_description">Vehicle Description:</label>
+  <textarea id="vehicle_description" name="vehicle_description" required><%= locals.vehicle_description %></textarea>
+
+
+  <label for="make">Vehicle Make:</label>
+  <input type="text" id="make" name="make" required value="<%= locals.make %>">
+
+
+  <label for="model">Vehicle Model:</label>
+  <input type="text" id="model" name="model" required value="<%= locals.model %>">
+
+
+  <label for="year">Vehicle Year:</label>
+  <input type="number" id="year" name="year" required value="<%= locals.year %>">
+
+
+  <label for="price">Vehicle Price:</label>
+  <input type="number" id="price" name="price" required value="<%= locals.price %>">
+
+
+  <label for="miles">Vehicle Mileage:</label>
+  <input type="number" id="miles" name="miles" required value="<%= locals.miles %>">
+
+  <!-- Field for vehicle color -->
+  <label for="color">Vehicle Color:</label>
+  <input type="text" id="color" name="color" required value="<%= locals.color %>">
+
+  <!-- Field for vehicle image -->
+  <label for="image">Vehicle Image:</label>
+  <input type="file" id="imagesum" name="image" accept="image/*">
+
+  <!-- Button to submit the form -->
+  <button type="submit">Add Vehicle</button>
+</form>
+</div>
+<!-- Success or error message -->
+<%- messages() %>
+
+<!-- Validation errors -->
+<ul>
+  <% errors.forEach(function(error) { %>
+    <li><%= error.msg %></li>
+  <% }); %>
+</ul>

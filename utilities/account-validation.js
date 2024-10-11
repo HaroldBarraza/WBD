@@ -99,17 +99,17 @@ validate.checkRegData = async (req, res, next) => {
     const error = validationResult(req);
     const nav = await utilities.getNav();
     
-    // Siempre pasa el objeto 'error' a la vista
+  
     res.render("account/login", {
-      error: error.isEmpty() ? { array: () => [] } : error, // Si no hay errores, crea un objeto con un array vacío
+      error: error.isEmpty() ? { array: () => [] } : error, 
       title: "Login",
       nav,
       account_email
     });
   
-    // Si quieres continuar con el siguiente middleware solo si no hay errores, usa:
+
     if (!error.isEmpty()) {
-      return; // Detener el flujo si hay errores
+      return;
     }
     next();
   }

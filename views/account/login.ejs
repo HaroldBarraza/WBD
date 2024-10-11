@@ -4,20 +4,24 @@
     <%- include('../partials/navigation') %>
     <%- include('../partials/header') %>
     <h1><%= title %></h1>
+    
     <% if (locals.error && locals.error.array && locals.error.array().length > 0) { %>
         <ul class="notice">
           <% locals.error.array().forEach(err => { %>
             <li><%= err.msg %></li>
           <%  }) %>
         </ul>
-      <% } %>
-      
-    <form id ="loginForm" action="/account/login" method="post">
+    <% } %>
+    
+    <form id="loginForm" action="/account/login" method="post">
+        <label for="email">Email</label>
         <input type="email" name="account_email" placeholder="Enter a valid email address" required>
-        <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter, and 1 special character.</span> 
+        <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter, and 1 special character.</span>
+        <br>
+        <label for="password">Password</label>
         <input type="password" name="account_password" id="accountPassword" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
-        <button type="submit">Iniciar sesión</button>
-        <p>No tienes cuenta? <a href="/account/register">Regístrate aquí</a></p>
+        <button type="submit">Login</button>
+        <p>Don't have an account? <a href="/account/register">Sign up here</a></p>
     </form>
 
     <%- include('../partials/footer') %>

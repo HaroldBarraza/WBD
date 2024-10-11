@@ -85,6 +85,24 @@ Util.errorHandler500 = (err, req, res, next) => {
 };
 Util.handleError = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 
+Util.buildClassificationList = async function (classification_id = null) {
+  let data = await invModel.getClassifications()
+  console.log('data.rows:', data.rows)
+
+  if (!data.rows || data.rows.length === 0) {
+    return '<select name="classification_id" id="classificationList" required><option value="">No hay clasificaciones disponibles</option></select>';
+  }
+
+  let html = '<select name="classification_id" id="classificationList" required>';
+  html += '<option value="">Seleccione una clasificación</option>';
+
+  data.rows.forEach((classification) => {
+    html += `<option value="${classification.classification_id}">${classification.classification_name}</option>`;
+  });
+
+  html += '</select>';
+  return html;
+}
 
 
 
