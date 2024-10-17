@@ -9,6 +9,10 @@ router.get('/login',utilities.handleError(accountController.buildLogin));
 
 router.get('/register', utilities.handleError(accountController.buildRegister));
 
+
+router.get("/", utilities.checkLogin, utilities.handleError(accountController.buildManagement))
+
+
 router.post(
     "/register",
     regValidate.registationRules(),
@@ -17,12 +21,17 @@ router.post(
   )
 
 
-router.post(
-  "/login",
-  validate.loginRules(), validate.checkLoginData, (req, res) => {
-    res.status(200).send("login process complete")
-  }
-)
+  router.post(
+    "/login",
+    regValidate.loginRules(),
+    regValidate.checkLoginData,
+    (req, res, next) => {
+      console.log("Ruta /login alcanzada");
+      next();
+    },
+    utilities.handleError(accountController.accountLogin)
+);
+
 
 
 module.exports = router;

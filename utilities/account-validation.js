@@ -95,24 +95,19 @@ validate.checkRegData = async (req, res, next) => {
 
 
   validate.checkLoginData = async (req, res, next) => {
-    const { account_email } = req.body;
     const error = validationResult(req);
     const nav = await utilities.getNav();
-    
-  
-    res.render("account/login", {
-      error: error.isEmpty() ? { array: () => [] } : error, 
-      title: "Login",
-      nav,
-      account_email
-    });
-  
 
     if (!error.isEmpty()) {
-      return;
+        return res.render("account/login", {
+            error,
+            title: "Login",
+            nav,
+            account_email: req.body.account_email // Asegúrate de pasar el email
+        });
     }
     next();
-  }
+}
   
   
   
