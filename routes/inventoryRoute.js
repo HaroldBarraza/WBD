@@ -57,4 +57,7 @@ router.post('/add-inventory', [
     .withMessage('Vehicle classification must be a number'),
 ], intController.addInventory);
 
+router.get('/getInventory/:classification_id', utilities.handleError(intController.getInventoryJSON));
+
+
 module.exports = router;

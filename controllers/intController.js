@@ -23,18 +23,28 @@ intCont.buildByClassificationId = async function (req, res, next) {
 
 // Función para mostrar la vista de gestión
 intCont.showManagement = async function (req, res) {
-    try {
-        const nav = await utilities.getNav(); // Obtener la navegación
-        res.render('./inventory/management', {
-            title: 'Management',
-            nav, // Pasar la variable nav
-            messages: req.flash('info')
-        });
-    } catch (error) {
-        console.error("Error fetching nav:", error);
-        res.status(500).send("Internal Server Error"); // Manejo básico de errores
-    }
+  try {
+      const nav = await utilities.getNav(); // Obtener la navegación
+      const classificationSelect = await utilities.buildClassificationList(); // Construir lista de clasificaciones
+      console.log('classificationSelect:', classificationSelect); // Verifica la lista de clasificaciones
+
+      res.render('./inventory/management', {
+          title: 'Management',
+          nav, // Pasar la variable nav
+          classificationSelect, // Agregar la lista de clasificaciones como un arreglo
+          messages: req.flash('info')
+      });
+  } catch (error) {
+      console.error("Error fetching nav:", error);
+      res.status(500).send("Internal Server Error"); // Manejo básico de errores
+  }
 };
+
+
+
+
+
+
 
 // Asegúrate de tener funciones similares para otras vistas
 intCont.showAddClassification = async function (req, res) {
@@ -220,5 +230,17 @@ intCont.triggerError500 = async function (req, res, next) {
   }
 };
 
+/* ***************************
+ *  Return Inventory by Classification As JSON
+ * ************************** */
+intCont.getInventoryJSON = async (req, res, next) => {
+  const classification_id = parseInt(req.params.classification_id)
+  const invData = await invModel.getInventoryByClassificationId(classification_id)
+  if (invData[0].inv_id) {
+    return res.json(invData)
+  } else {
+    next(new Error("No data returned"))
+  }
+}
 
 module.exports = intCont;
