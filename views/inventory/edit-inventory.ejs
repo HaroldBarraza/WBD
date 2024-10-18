@@ -1,0 +1,39 @@
+<h1>Modificar Vehículo</h1>
+<form action="/inv/update" method="post">
+    <label for="make">Make:</label>
+    <input type="text" name="make" value="<%= inv_make || '' %>">
+
+    <label for="model">Model:</label>
+    <input type="text" name="model" value="<%= inv_model %>">
+
+    <label for="year">Year:</label>
+    <input type="text" name="year" value="<%= inv_year %>">
+
+    <label for="description">Description:</label>
+    <textarea name="description"><%= inv_description %></textarea>
+
+    <label for="image">Image:</label>
+    <input type="text" name="image" value="<%= inv_image %>">
+
+    <label for="thumbnail">Thumbnail:</label>
+    <input type="text" name="thumbnail" value="<%= inv_thumbnail %>">
+
+    <label for="price">Price:</label>
+    <input type="text" name="price" value="<%= inv_price %>">
+
+    <label for="mile">Mile:</label>
+    <input type="text" name="mile" value="<%= inv_miles %>">
+
+    <label for="color">Color:</label>
+    <input type="text" name="color" value="<%= inv_color %>">
+
+    <label for="classification">Classification:</label>
+    <select name="classification">
+        <option value="<%= classification_name %>"><%= classification_name %></option>
+    </select>
+
+    <input type="submit" name="submit" value="Update Vehicle">
+    <input type="hidden" name="inv_id"
+    <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+    <% } %>>
+</form>

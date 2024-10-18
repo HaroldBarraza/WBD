@@ -33,5 +33,7 @@ router.post(
 );
 
 
+router.get('/management', accountController.isAuthenticated, accountController.buildManagement);
+
 
 module.exports = router;

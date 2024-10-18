@@ -43,6 +43,9 @@ app.use(utilities.checkJWTToken)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+
+
+
 app.use('/account', require("./routes/accountRoute"));
 
 /* ***********************

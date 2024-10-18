@@ -59,5 +59,19 @@ router.post('/add-inventory', [
 
 router.get('/getInventory/:classification_id', utilities.handleError(intController.getInventoryJSON));
 
+router.get('/edit/:inventory_id', intController.getEditInventoryItem);
 
-module.exports = router;
+// Manejo de errores en la ruta
+router.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Ocurrió un error al cargar la página de edición.');
+});
+
+router.get('/inv/edit/:inv_id', intController .editInventoryView);
+
+
+
+
+ 
+module.exports = router; 
+  

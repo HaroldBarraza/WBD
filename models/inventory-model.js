@@ -10,7 +10,7 @@ async function getClassifications() {
 async function getInventoryByClassificationId(classification_id) {
     try {
         const data = await pool.query(
-            `SELECT * FROM public.inventory WHERE classification_id = $1`,
+            "SELECT * FROM public.inventory WHERE classification_id = $1",
             [classification_id]
         );
         return data.rows;
@@ -32,25 +32,29 @@ async function getClassificationListFromDB() {
 }
 
 
-async function getInventoryItemById(invId) {
+async function getInventoryItemById(inv_id) {
+    const query = `
+        SELECT i.*, c.classification_name
+        FROM public.inventory AS i
+        JOIN public.classification AS c
+        ON i.classification_id = c.classification_id
+        WHERE i.inv_id = $1;
+    `;
+    const values = [inv_id];
+
     try {
-      const data = await pool.query(
-        `SELECT * FROM public.inventory AS i 
-        JOIN public.classification AS c 
-        ON i.classification_id = c.classification_id 
-        WHERE i.inv_id = $1`,
-        [invId]
-      );
-      return data.rows[0];
+        const result = await pool.query(query, values);
+        return result.rows[0];  // Asegúrate de que el resultado contiene `inv_id`
     } catch (error) {
-      console.error("getInventoryItemById error " + error);
+        console.error('Error fetching inventory item by id:', error);
+        throw error;  // Lanza el error para que pueda ser manejado en el controlador
     }
-  }
+}
 
 async function getVehicleById(inventory_id) {
     try {
         const data = await pool.query(
-            `SELECT * FROM public.inventory WHERE inv_id = $1`,
+            "SELECT * FROM public.inventory WHERE inv_id = $1",
             [inventory_id]
         );
         return data.rows;

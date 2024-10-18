@@ -194,4 +194,19 @@ async function buildManagement(req, res) {
 }
 
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, accountManagement, buildManagement };
+function isAuthenticated(req, res, next) {
+  const token = req.cookies.jwt; // Obtener el token de la cookie
+  if (!token) {
+      return res.redirect('/account/login'); // Redirigir si no está autenticado
+  }
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+      if (err) {
+          return res.redirect('/account/login'); // Redirigir si hay un error
+      }
+      req.user = user; // Almacenar el usuario en la solicitud
+      next(); // Continuar al siguiente middleware
+  });
+}
+
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, accountManagement, buildManagement, isAuthenticated };

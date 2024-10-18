@@ -9,7 +9,7 @@ router.get('/add-classification', (req, res) => {
         messages: req.flash('info'),
         error: req.flash('error')
     });
-});
+}); 
 
 router.post('/add-classification', validationMiddleware, inventoryController.addClassification);
 
@@ -18,7 +18,7 @@ router.post('/add', async (req, res) => {
     try {
       const { vehicle_name, vehicle_description, make, model, year, price, miles, color, image } = req.body;
       const classification_id = req.body.classification_id;
-      const result = await inventoryModel.addInventory(vehicle_name, vehicle_description, make, model, year, price, miles, color, image, classification_id);
+      const result = await invModel.addInventory(vehicle_name, vehicle_description, make, model, year, price, miles, color, image, classification_id);
       res.redirect('/inventory');
     } catch (error) {
       console.error(error);
@@ -26,4 +26,5 @@ router.post('/add', async (req, res) => {
     }
   });
   
+router.get('/inv/edit/:inv_id', intCont.editInventoryView);
 module.exports = router;
