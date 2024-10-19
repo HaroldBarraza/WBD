@@ -19,7 +19,7 @@
   <% } %>
 
   <!-- Formulario de Actualización de Cuenta -->
-  <section>
+  <section id="sub-title" >
     <h2>Account Update</h2>
     <form action="/account/update" method="POST">
       <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
@@ -44,7 +44,7 @@
   </section>
 
   <!-- Formulario de Cambio de Contraseña -->
-  <section>
+  <section id="sub-title">
     <h2>Change Password</h2>
     <form action="/account/change-password" method="POST">
       <input type="hidden" name="account_id" value="<%= accountData.account_id %>">

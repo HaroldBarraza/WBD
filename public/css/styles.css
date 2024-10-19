@@ -279,7 +279,8 @@ h1 {
   color: #333;
 }
 
-#loginForm{
+#loginForm,
+#sub-title{
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
@@ -290,7 +291,8 @@ h1 {
   margin-right: auto;
 }
 
-#loginForm label {
+#loginForm label,
+#sub-title label {
   display: block;
   margin-bottom: 8px;
   color: #333;
@@ -321,14 +323,18 @@ textarea:focus {
     outline: none;
 }
 
-#loginForm span {
+#loginForm span,
+#sub-title  span {
+
   display: block;
   margin-bottom: 10px;
   color: #666;
   font-size: 0.9em;
 }
 
-#loginForm button {
+#loginForm button,
+#sub-title  button {
+
   width: 100%;
   padding: 10px;
   background-color: #0066cc;
@@ -338,6 +344,7 @@ textarea:focus {
   cursor: pointer;
   font-size: 1em;
 }
+
 
 input[type="submit" i] {
   width: 100%;
@@ -350,16 +357,22 @@ input[type="submit" i] {
   font-size: 1em;
 }
 
-#loginForm button:hover {
+#loginForm button:hover,
+#sub-title   button:hover {
+
   background-color: #005bb5;
 }
 
-#loginForm p {
+#loginForm p,
+#sub-title   p {
+
   text-align: center;
   color: #333;
 }
 
-#loginForm a {
+#loginForm a 
+#sub-title   a {
+
   color: #0066cc;
   text-decoration: none;
 }
@@ -400,6 +413,9 @@ input[type="submit" i] {
 }
 #imagesum{
   margin: 10% 0%;
+}
+#sub-title{
+  text-align: center;
 }
 
 
