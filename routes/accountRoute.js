@@ -3,25 +3,24 @@ const router = new express.Router();
 const utilities = require('../utilities');
 const accountController = require('../controllers/accountController');
 const regValidate = require('../utilities/account-validation');
-const validate = require('../utilities/account-validation');
+const validationMiddleware = require("../middleware/authMiddleware")
 
-router.get('/login',utilities.handleError(accountController.buildLogin));
-
+// Rutas de autenticación
+router.get('/login', utilities.handleError(accountController.buildLogin));
 router.get('/register', utilities.handleError(accountController.buildRegister));
 
+// Ruta para la gestión de cuentas (asegúrate de que el usuario esté autenticado)
+router.get('/management', utilities.checkLogin, utilities.handleError(accountController.accountManagement));
 
-router.get("/", utilities.checkLogin, utilities.handleError(accountController.buildManagement))
-
-
+// Rutas para registro y login
 router.post(
     "/register",
     regValidate.registationRules(),
     regValidate.checkRegData,
     utilities.handleError(accountController.registerAccount)
-  )
+);
 
-
-  router.post(
+router.post(
     "/login",
     regValidate.loginRules(),
     regValidate.checkLoginData,
@@ -32,8 +31,24 @@ router.post(
     utilities.handleError(accountController.accountLogin)
 );
 
+// Ruta para cerrar sesión
+router.get("/logout", utilities.checkLogin, accountController.logout);
+router.get('/', utilities.checkLogin, utilities.handleError(accountController.accountManagement));
 
-router.get('/management', accountController.isAuthenticated, accountController.buildManagement);
 
+
+// Ruta para manejar la actualización de la cuenta
+router.post('/update', validationMiddleware.validateAccountUpdate, accountController.updateAccount);
+
+// Ruta para manejar el cambio de contraseña
+router.post('/change-password', validationMiddleware.validatePasswordChange, accountController.changePassword);
+router.get('/update/:id', accountController.getUpdateView);
+
+router.post('/logout', (req, res) => {
+  // Eliminar la cookie del token
+  res.clearCookie('token'); // Asegúrate de que 'token' sea el nombre correcto de tu cookie
+  // Redirigir al cliente a la vista de inicio
+  res.redirect('/');
+});
 
 module.exports = router;

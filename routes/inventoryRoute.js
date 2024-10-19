@@ -3,6 +3,8 @@ const router = new express.Router();
 const intController = require("../controllers/intController");
 const utilities = require('../utilities/index');
 const { check, validationResult } = require('express-validator');
+const { checkAdminEmployee } = require("../middleware/authMiddleware");
+const regValidate = require('../utilities/account-validation')
 
 // Route to get inventory by classification
 router.get("/type/:classificationId", intController.buildByClassificationId);
@@ -70,8 +72,25 @@ router.use((err, req, res, next) => {
 router.get('/inv/edit/:inv_id', intController .editInventoryView);
 
 
+// Rutas públicas (no requieren autenticación)
+router.get("/type/:classificationId", utilities.handleError(intController.buildByClassificationId));
+router.get("/detail/:invId", utilities.handleError(intController.buildByInventoryId));
+
+// Rutas administrativas (requieren autenticación y privilegios)
+router.get("/", checkAdminEmployee, utilities.handleError(intController.buildManagement));
+router.get("/add-classification", checkAdminEmployee, utilities.handleError(intController.buildAddClassification));
+router.post("/add-classification", checkAdminEmployee, utilities.handleError(intController.addClassification));
+router.post("/add-inventory", checkAdminEmployee, utilities.handleError(intController.addInventory));
+router.get("/getInventory/:classification_id", checkAdminEmployee, utilities.handleError(intController.getInventoryJSON));
+router.get("/edit/:invId", checkAdminEmployee, utilities.handleError(intController.buildEditInventory));
+router.post("/update/", checkAdminEmployee, utilities.handleError(intController.updateInventory));
+router.get("/delete/:invId", checkAdminEmployee, utilities.handleError(intController.buildDeleteInventory));
+router.post("/delete", checkAdminEmployee, utilities.handleError(intController.deleteInventory));
+
+router.get("/", utilities.checkLogin, utilities.handleError(intController.buildAccountManagement))
+router.get("/update/:accountId", utilities.checkLogin, utilities.handleError(intController.buildAccountUpdate))
+router.post("/update", utilities.checkLogin, regValidate.registationRules(), regValidate.checkRegData, utilities.handleError(intController.updateAccount))
 
 
- 
 module.exports = router; 
   

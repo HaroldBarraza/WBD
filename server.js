@@ -68,6 +68,11 @@ app.use(function(req, res,next){
 app.set("view engine", "ejs"); 
 app.use(expressLayouts);
 app.set("layout", "./layouts/layout");
+app.use((req, res, next) => {
+  res.locals.loggedin = req.session.loggedin;
+  res.locals.accountData = req.session.accountData;
+  next();
+});
 
 /* ***********************
  * Routes

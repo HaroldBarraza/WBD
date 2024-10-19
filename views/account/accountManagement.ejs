@@ -1,15 +1,24 @@
-<!-- views/account/accountManagement.ejs -->
-<%- include('../partials/head') %>
+
+
 <div>
-    <div>
+    <%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<%- include('../partials/navigation') %>
+  <h1><%= title %></h1>
 
-    </div>
-    
-    <%- include('../partials/navigation') %>
-    <%- include('../partials/header') %>
-    <h1>Account Management</h1>
+  <% if (accountData) { %>
+    <h2>Welcome <%= accountData.account_firstname %></h2>
 
-    <p>You're logged in.</p>
+    <!-- Enlace para actualizar la información de la cuenta -->
+    <p><a href="/account/update/<%= accountData.account_id %>">Update Account Information</a></p>
 
-    <%- include('../partials/footer') %>
-</div>
+    <% if (accountData.account_type === 'Employee' || accountData.account_type === 'Admin') { %>
+      <h3>Inventory Management</h3>
+      <p><a href="/inv/">Access Inventory Management</a></p>
+    <% } %>
+  <% } else { %>
+    <p>Please log in to view account management.</p>
+  <% } %>
+  <%- include('../partials/footer') %>
+  </div>
+
