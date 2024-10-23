@@ -1,3 +1,35 @@
 <div class="vehicle-details">
     <%- grid %>
 </div>
+<div id="title">
+<h2>Comments</h2>
+</div>
+<div id="comment" >
+    <ul>
+        <% if (locals.comments && locals.comments.length > 0) { %>
+            <% locals.comments.forEach(comment => { %>
+                <li>
+                    <strong><%= comment.account_firstname %></strong> 
+                    <em><%= new Date(comment.created_at).toLocaleString() %></em>
+                    <hr>
+                    <p><%= comment.comment_text %></p>
+                </li>
+            <% }); %>
+        <% } else { %>
+            <li>No comments yet.</li>
+        <% } %>
+    </ul>
+</div>
+
+<% if (locals.loggedin) { %>
+    <div id="send" >
+    <h3>Add a Comment</h3>
+        <div id="forms">
+            <form action="/inv/comment" method="post">
+                <input type="hidden" name="vehicleId" value="<%= inv_id %>">
+                <textarea name="commentText" required></textarea>
+                <button type="submit">Add Comment</button>
+            </form>
+        </div>
+    </div>
+<% } %>

@@ -4,12 +4,15 @@ const intController = require("../controllers/intController");
 const utilities = require('../utilities/index');
 const { check, validationResult } = require('express-validator');
 const { checkAdminEmployee } = require("../middleware/authMiddleware");
+const commentController = require("../controllers/commentController")
 const regValidate = require('../utilities/account-validation')
 
 // Route to get inventory by classification
 router.get("/type/:classificationId", intController.buildByClassificationId);
 
 // Route to get details of a specific inventory item
+
+router.get("/detail/:inventory_id", commentController.getComments, intController.getInventoryDetail);
 router.get("/detail/:inventory_id", intController.getInventoryDetail);
 
 // Route to trigger error 500 intentionally
@@ -90,6 +93,10 @@ router.post("/delete", checkAdminEmployee, utilities.handleError(intController.d
 router.get("/", utilities.checkLogin, utilities.handleError(intController.buildAccountManagement))
 router.get("/update/:accountId", utilities.checkLogin, utilities.handleError(intController.buildAccountUpdate))
 router.post("/update", utilities.checkLogin, regValidate.registationRules(), regValidate.checkRegData, utilities.handleError(intController.updateAccount))
+
+
+router.post('/comment', utilities.checkLogin, commentController.addComment)
+
 
 
 module.exports = router; 

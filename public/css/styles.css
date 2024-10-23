@@ -417,6 +417,57 @@ input[type="submit" i] {
 #sub-title{
   text-align: center;
 }
+#comment{
+  background-color: #fff;
+  border-color: rgb(203, 21, 8);
+  border-style: solid;
+  border-radius: 1%;
+}
+#comment hr {
+  height: 3px;
+  background-color: red;
+  width: 90%;
+}
+
+#comment em{
+  margin-left: 68%;
+
+}
+#comment strong{
+  margin-left: 4rem;
+}
+#comment li {
+  list-style: none;
+
+}
+#comment p{
+  margin: 2rem 4rem;
+}
+#comment ul{
+  padding: 0 ;
+}
+#comment h2 {
+
+}
+
+
+#forms button{
+  padding: 10px;
+  background-color: rgb(203, 21, 8);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+#forms button:hover{
+  background-color: #000000;
+  color: rgb(203, 21, 8);
+}
+#send h3{
+  margin-left: 2rem;
+  font-size: 1.5rem;
+}
 
 
 @media (max-width: 768px) {

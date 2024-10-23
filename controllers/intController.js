@@ -229,6 +229,7 @@ intCont.getInventoryDetail = async function (req, res, next) {
         title,
         grid, 
         nav,
+        inv_id: data.inv_id
       });
     } else {
       res.status(404).send("Inventory item not found");
